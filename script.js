@@ -3,23 +3,44 @@ import parserTypeScript from "./parser-typescript.mjs";
 import prettierFormat_formatCode from "./parser-java.js";
 
 window.addEventListener("load", startLoading, false);
+window.addEventListener("locationchange", function (event) {
+    // Log the state data to the console
+    console.log(event);
+    if (document.getElementById("button-format") !== null) {
+        console.debug("Button present");
+    } else {
+        console.debug("Button not present");
+    }
+});
 
 function startLoading() {
-    let codeMirror = document.querySelector(".CodeMirror").CodeMirror;
-    if (codeMirror == undefined) {
+    let codeMirrorSelector = document.querySelector(".CodeMirror");
+    if (codeMirrorSelector === undefined) {
+        // codemirror not found on page
+        return;
+    }
+    let codeMirror = codeMirrorSelector.CodeMirror;
+    if (codeMirror === undefined) {
         // codeMirror not found
         return;
     }
-    console.log(codeMirror);
+    
     let programmingLanguage = document.querySelector(
         ".ant-select-selection-selected-value"
     );
 
-    if (!programmingLanguage.title) {
+    if (!programmingLanguage || !programmingLanguage.title) {
         // Dom not loaded yet
         return;
     }
 
+    if (document.getElementById('format-button') !== null) {        
+        return;
+    }
+    else {
+        console.debug('installing button');
+    }
+    
     let button = getFormatButton();
     button.addEventListener("click", function () {
         formatCodeFinal(codeMirror, programmingLanguage);
@@ -29,13 +50,14 @@ function startLoading() {
         button
     );
 
-    clearInterval(timer);
+    //clearInterval(timer);
 }
 
 const getFormatButton = function () {
     var button = document.createElement("button");
     button.innerHTML = "▤";
     button.className = "tool-button";
+    button.id = "format-button";
     button.setAttribute("icon", "information");
     button.setAttribute("data-no-border", "true");
     button.setAttribute("type", "ghost");
@@ -45,6 +67,7 @@ const getFormatButton = function () {
     button.style.borderImage = "none";
     button.style.outline = "none";
     button.style.cursor = "pointer";
+    button.title = "Format";
     return button;
 };
 
@@ -74,6 +97,10 @@ const formatCodeFinal = function (codeMirror, programmingLanguage) {
             codeText,
             {}
         );
+    }
+    else {
+        console.debug(`Formatter not available for ${programmingLanguage.title}`);    
+        return;
     }
 
     if (formattedCode) {
