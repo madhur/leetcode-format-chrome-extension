@@ -2,7 +2,7 @@
     "name": "Leetcode format",
     "version": "1.0",
     "manifest_version": 2,
-    "description": "Format code on leetcode",
+    "description": "Adds Format code button on leetcode to format the code using Prettier code formatter",
     "homepage_url": "https://madhur.co.in",
     "icons": {
         "16": "icons/icon16.png",
@@ -19,9 +19,7 @@
         "standalone.js",
         "parser-babel.mjs",
         "parser-typescript.mjs",
+        "parser-java.js",
         "script.js"
-    ],
-    "externally_connectable": {
-        "matches": ["*://*.leetcode.com/*"]
-    }
+    ]
 }

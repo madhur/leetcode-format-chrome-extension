@@ -17,3 +17,7 @@ s.type = "module";
 s.src = chrome.runtime.getURL("parser-typescript.mjs");
 s.type = "module";
 (document.head || document.documentElement).appendChild(s);
+
+s.src = chrome.runtime.getURL("parser-java.js");
+s.type = "module";
+(document.head || document.documentElement).appendChild(s);
