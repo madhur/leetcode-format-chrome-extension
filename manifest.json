@@ -11,9 +11,17 @@
     },
     "content_scripts": [
         {
-            "js": ["codemirror.js", "content.js"],
+            "js": ["content.js"],
             "matches": ["https://*.leetcode.com/*"]
         }
     ],
-    "web_accessible_resources": ["script.js"]
+    "web_accessible_resources": [
+        "standalone.js",
+        "parser-babel.js",
+        "parser-typescript.js",
+        "script.js"
+    ],
+    "externally_connectable": {
+        "matches": ["*://*.leetcode.com/*"]
+    }
 }

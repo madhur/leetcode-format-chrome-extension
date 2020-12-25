@@ -1,7 +1,17 @@
-var s = document.createElement("script");
-// TODO: add "script.js" to web_accessible_resources in manifest.json
+let s = document.createElement("script");
+
 s.src = chrome.runtime.getURL("script.js");
-s.onload = function () {
-    this.remove();
-};
+(document.head || document.documentElement).appendChild(s);
+
+s = document.createElement("script");
+
+s.src = chrome.runtime.getURL("standalone.js");
+(document.head || document.documentElement).appendChild(s);
+
+s = document.createElement("script");
+
+s.src = chrome.runtime.getURL("parser-babel.js");
+(document.head || document.documentElement).appendChild(s);
+
+s.src = chrome.runtime.getURL("parser-typescript.js");
 (document.head || document.documentElement).appendChild(s);
