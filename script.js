@@ -1,3 +1,6 @@
+import parserBabel from "./parser-babel.mjs";
+import parserTypeScript from "./parser-typescript.mjs";
+
 window.addEventListener("load", startLoading, false);
 
 function startLoading() {
@@ -48,7 +51,7 @@ function startLoading() {
         } else if (language === "TypeScript") {
             formattedCode = prettier.format(codeText, {
                 parser: "typescript",
-                plugins: [parserTypescript],
+                plugins: [parserTypeScript],
             });
         }
 

@@ -17,8 +17,8 @@
     ],
     "web_accessible_resources": [
         "standalone.js",
-        "parser-babel.js",
-        "parser-typescript.js",
+        "parser-babel.mjs",
+        "parser-typescript.mjs",
         "script.js"
     ],
     "externally_connectable": {
