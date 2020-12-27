@@ -93,10 +93,12 @@ const formatCodeFinal = function (codeMirror, programmingLanguage) {
             plugins: [parserTypeScript],
         });
     } else if (language === "Java") {
-        formattedCode = prettierFormat_formatCode.formatCode(
-            codeText,
-            {}
-        );
+        formattedCode = prettierFormat_formatCode.formatCode(codeText, {
+          
+                printWidth: 200,
+                tabWidth: 4
+        
+        });
     }
     else {
         console.debug(`Formatter not available for ${programmingLanguage.title}`);    
