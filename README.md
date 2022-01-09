@@ -7,6 +7,7 @@ formatter](https://prettier.io/)
 
 Currently, following languages are supported, with plans to add more:
 * Java
+* C++
 * JavaScript
 * TypeScript
 
