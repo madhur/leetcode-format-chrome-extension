@@ -15,7 +15,7 @@ window.addEventListener("locationchange", function (event) {
 
 function startLoading() {
     let codeMirrorSelector = document.querySelector(".CodeMirror");
-    if (codeMirrorSelector === undefined) {
+    if (codeMirrorSelector === undefined || codeMirrorSelector === null) {
         // codemirror not found on page
         return;
     }
