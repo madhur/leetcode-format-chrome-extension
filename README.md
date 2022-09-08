@@ -1,6 +1,7 @@
 # LeetCode Code Format Google Chrome Extension
 
-This Google chrome extension adds the Format button to the [LeetCode](https://leetcode.com/) code editor.
+This extension adds the Format button to the [LeetCode](https://leetcode.com/) code editor. Available for [Google Chrome](https://chrome.google.com/webstore/detail/leetcode-format/imogghebhifnnlgogigikjecilkicfpp) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/leetcode-format/).
+
 
 The format button formats the code as per the [Prettier
 formatter](https://prettier.io/)
