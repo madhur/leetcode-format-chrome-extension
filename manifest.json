@@ -11,19 +11,30 @@
     },
     "content_scripts": [
         {
-            "js": ["content.js"],
-            "matches": ["https://*.leetcode.com/*", "https://*.leetcode.cn/*"]
+            "js": [
+                "content.js"
+            ],
+            "matches": [
+                "https://*.leetcode.com/*",
+                "https://*.leetcode.cn/*"
+            ]
         }
     ],
-    "web_accessible_resources": [{
-    "resources": [    
-        "standalone.js",
-        "parser-babel.mjs",
-        "parser-typescript.mjs",
-        "parser-java.js",
-        "beautify.js",
-        "script.js"
-    ],
-    "matches": ["https://*.leetcode.com/*", "https://*.leetcode.cn/*"]
-    }]
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "dart-style.js",
+                "standalone.js",
+                "parser-babel.mjs",
+                "parser-typescript.mjs",
+                "parser-java.js",
+                "beautify.js",
+                "script.js"
+            ],
+            "matches": [
+                "https://*.leetcode.com/*",
+                "https://*.leetcode.cn/*"
+            ]
+        }
+    ]
 }

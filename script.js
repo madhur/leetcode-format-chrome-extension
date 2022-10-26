@@ -1,6 +1,7 @@
 import parserBabel from "./parser-babel.mjs";
 import parserTypeScript from "./parser-typescript.mjs";
 import prettierFormat_formatCode from "./parser-java.js";
+import "./dart-style.js"
 
 window.addEventListener("load", startLoading, false);
 window.addEventListener("locationchange", function (event) {
@@ -103,6 +104,9 @@ const formatCodeFinal = function (codeMirror, programmingLanguage) {
             'brace_style': 'expand'
         });
         formattedCode = applyCustomRules(formattedCode);
+    }
+    else if (language === "Dart") {
+        formattedCode = dartfmt.formatCode(codeText).code
     }
     else {
         console.debug(`Formatter not available for ${programmingLanguage.title}`);
