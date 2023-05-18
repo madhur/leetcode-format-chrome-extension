@@ -15,66 +15,42 @@ window.addEventListener("locationchange", function (event) {
 });
 
 function startLoading() {
-    let codeMirrorSelector = document.querySelector(".CodeMirror");
-    if (codeMirrorSelector === undefined || codeMirrorSelector === null) {
-        // codemirror not found on page
-        return;
+    const btn = getFormatButton();
+    if (!document.querySelector(".tool-button")) {
+      document.querySelector(".mr-auto.flex.flex-nowrap.items-center.gap-3").appendChild(btn);
     }
-    let codeMirror = codeMirrorSelector.CodeMirror;
-    if (codeMirror === undefined) {
-        // codeMirror not found
-        return;
-    }
-
-    let programmingLanguage = document.querySelector(
-        ".ant-select-selection-selected-value"
-    );
-
-    if (!programmingLanguage || !programmingLanguage.title) {
-        // Dom not loaded yet
-        return;
-    }
-
-    if (document.getElementById('format-button') !== null) {
-        return;
-    }
-    else {
-        console.debug('installing button');
-    }
-
-    let button = getFormatButton();
-    button.addEventListener("click", function () {
-        formatCodeFinal(codeMirror, programmingLanguage);
-    });
-
-    programmingLanguage.parentElement.parentElement.parentElement.parentElement.parentElement.appendChild(
-        button
-    );
-
-    //clearInterval(timer);
-}
-
-const getFormatButton = function () {
+  }
+  
+  const getFormatButton = function () {
     var button = document.createElement("button");
-    button.innerHTML = "▤";
+    button.innerHTML = "Format";
     button.className = "tool-button";
     button.id = "format-button";
     button.setAttribute("icon", "information");
     button.setAttribute("data-no-border", "true");
     button.setAttribute("type", "ghost");
     button.style.marginRight = "10px";
+    button.style.marginLeft = "10px";
     button.style.border = "none";
-    button.style.backgroundColor = "transparent";
+    button.style.backgroundColor = "#282828";
     button.style.borderImage = "none";
     button.style.outline = "none";
     button.style.cursor = "pointer";
     button.title = "Format";
+    button.style.padding = "4px 20px";
+    button.style.color = "white";
+    button.style.fontWeight = "600";
+    button.style.borderRadius = "3px";
+  
+    button.addEventListener("click", formatCodeFinal);
     return button;
-};
+  };
 
-const formatCodeFinal = function (codeMirror, programmingLanguage) {
-    let language = programmingLanguage.title;
-    let codeText = codeMirror.getValue();
+
+const formatCodeFinal = function () {
+    let language = document.querySelector(".relative.notranslate").innerText
+
+    let codeText = getCode();
     if (language === undefined) {
         return;
     }
@@ -87,7 +63,7 @@ const formatCodeFinal = function (codeMirror, programmingLanguage) {
             parser: "babel",
             plugins: [parserBabel],
         });
-        codeMirror.setValue(formattedCode);
+        insertCode(formattedCode);
     } else if (language === "TypeScript") {
         formattedCode = prettier.format(codeText, {
             parser: "typescript",
@@ -109,14 +85,14 @@ const formatCodeFinal = function (codeMirror, programmingLanguage) {
         formattedCode = dartfmt.formatCode(codeText).code
     }
     else {
-        console.debug(`Formatter not available for ${programmingLanguage.title}`);
+        console.debug(`Formatter not available for ${language}`);
         return;
     }
 
     if (formattedCode) {
-        codeMirror.setValue(formattedCode);
+        insertCode(formattedCode);
     }
-    console.debug(`Code formatted for ${programmingLanguage.title}`);
+    console.debug(`Code formatted for ${language}`);
 };
 
 const applyCustomRules = function (formatted) {
@@ -269,6 +245,18 @@ const applyCustomRules = function (formatted) {
 
         .replace(/\>\s+\{\s*([A-Za-z0-9 ,-.\"]+)\s+\}\;/g, '> { $1 };');
 }
-
+function insertCode(code) {
+    if (code) {
+      var model = monaco.editor.getModels()[0];
+      model.setValue(code);
+    }
+  }
+  
+function getCode() {
+    var model = monaco.editor.getModels()[0];
+    var code = model.getValue();
+  
+    return code;
+  }
 
 setInterval(startLoading, 5000);
