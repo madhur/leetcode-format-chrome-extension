@@ -14,14 +14,58 @@ window.addEventListener("locationchange", function (event) {
     }
 });
 
+let activeLanguage = null;
+let btn  = null;
+const supportedLanguages = ["Java", "JavaScript", "TypeScript", "C++", "Dart" ]
+
+const languageObserver = ".relative.notranslate";
+const languageSelector = ".relative.notranslate div div";
+const buttonLocation = ".mr-auto.flex.flex-nowrap.items-center.gap-3";
+let theme = null;
+const lightTextColor = "#000000";
+const darkTextColor = "#eff1f6ff";
+
+
+function setupLanguageObserver() {
+
+    const targetNode = document.querySelector(languageObserver);
+
+    // Options for the observer (which mutations to observe)
+    const config = { attributes: true, childList: true, subtree: true };
+
+    // Callback function to execute when mutations are observed
+    const callback = (mutationList, observer) => {
+        activeLanguage = document.querySelector(languageSelector).innerText;
+        console.debug(activeLanguage);
+        if (supportedLanguages.includes(activeLanguage)) {
+            btn.style.visibility = 'visible';
+        }
+        else {
+            btn.style.visibility = 'hidden';
+        }
+        setButtonTheme(btn);
+      
+    };
+
+    // Create an observer instance linked to the callback function
+    const observer = new MutationObserver(callback);
+
+    // Start observing the target node for configured mutations
+    observer.observe(targetNode, config);
+
+}
+
+
+
 function startLoading() {
-    const btn = getFormatButton();
-    if (!document.querySelector(".tool-button")) {
-      document.querySelector(".mr-auto.flex.flex-nowrap.items-center.gap-3").appendChild(btn);
+    btn = getFormatButton();
+    if (!document.querySelector(".tool-button") && document.querySelector(buttonLocation)) {
+        document.querySelector(buttonLocation).appendChild(btn);
+        setupLanguageObserver();
     }
-  }
-  
-  const getFormatButton = function () {
+}
+
+const getFormatButton = function () {
     var button = document.createElement("button");
     button.innerHTML = "Format";
     button.className = "tool-button";
@@ -32,19 +76,18 @@ function startLoading() {
     button.style.marginRight = "10px";
     button.style.marginLeft = "10px";
     button.style.border = "none";
-    button.style.backgroundColor = "#282828";
+    setButtonTheme(button);
     button.style.borderImage = "none";
     button.style.outline = "none";
     button.style.cursor = "pointer";
     button.title = "Format";
     button.style.padding = "4px 20px";
-    button.style.color = "white";
     button.style.fontWeight = "600";
     button.style.borderRadius = "3px";
-  
+
     button.addEventListener("click", formatCodeFinal);
     return button;
-  };
+};
 
 
 const formatCodeFinal = function () {
@@ -94,6 +137,16 @@ const formatCodeFinal = function () {
     }
     console.debug(`Code formatted for ${language}`);
 };
+
+const setButtonTheme = function(btn) {
+    theme = document.getElementsByTagName('html')[0].getAttribute('data-theme');
+    if (theme === 'dark') {
+        btn.style.color = darkTextColor;
+    }
+    else if (theme === 'light') {
+        btn.style.color = lightTextColor;
+    }
+}
 
 const applyCustomRules = function (formatted) {
     return formatted.replace(/\}\r\n/g, '}\n\n')
@@ -247,16 +300,16 @@ const applyCustomRules = function (formatted) {
 }
 function insertCode(code) {
     if (code) {
-      var model = monaco.editor.getModels()[0];
-      model.setValue(code);
+        var model = monaco.editor.getModels()[0];
+        model.setValue(code);
     }
-  }
-  
+}
+
 function getCode() {
     var model = monaco.editor.getModels()[0];
     var code = model.getValue();
-  
-    return code;
-  }
 
-setInterval(startLoading, 5000);
+    return code;
+}
+
+setTimeout(startLoading, 5000);
