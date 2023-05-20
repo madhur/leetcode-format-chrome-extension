@@ -14,67 +14,86 @@ window.addEventListener("locationchange", function (event) {
     }
 });
 
+let activeLanguage = null;
+let btn  = null;
+const supportedLanguages = ["Java", "JavaScript", "TypeScript", "C++", "Dart" ]
+
+const languageObserver = ".relative.notranslate";
+const languageSelector = ".relative.notranslate div div";
+const buttonLocation = ".mr-auto.flex.flex-nowrap.items-center.gap-3";
+let theme = null;
+const lightTextColor = "#000000";
+const darkTextColor = "#eff1f6ff";
+
+
+function setupLanguageObserver() {
+
+    const targetNode = document.querySelector(languageObserver);
+
+    // Options for the observer (which mutations to observe)
+    const config = { attributes: true, childList: true, subtree: true };
+
+    // Callback function to execute when mutations are observed
+    const callback = (mutationList, observer) => {
+        activeLanguage = document.querySelector(languageSelector).innerText;
+        console.debug(activeLanguage);
+        if (supportedLanguages.includes(activeLanguage)) {
+            btn.style.visibility = 'visible';
+        }
+        else {
+            btn.style.visibility = 'hidden';
+        }
+        setButtonTheme(btn);
+      
+    };
+
+    // Create an observer instance linked to the callback function
+    const observer = new MutationObserver(callback);
+
+    // Start observing the target node for configured mutations
+    observer.observe(targetNode, config);
+
+}
+
+
+
 function startLoading() {
-    let codeMirrorSelector = document.querySelector(".CodeMirror");
-    if (codeMirrorSelector === undefined || codeMirrorSelector === null) {
-        // codemirror not found on page
-        return;
+    btn = getFormatButton();
+    if (!document.querySelector(".tool-button") && document.querySelector(buttonLocation)) {
+        document.querySelector(buttonLocation).appendChild(btn);
+        setupLanguageObserver();
     }
-    let codeMirror = codeMirrorSelector.CodeMirror;
-    if (codeMirror === undefined) {
-        // codeMirror not found
-        return;
-    }
-
-    let programmingLanguage = document.querySelector(
-        ".ant-select-selection-selected-value"
-    );
-
-    if (!programmingLanguage || !programmingLanguage.title) {
-        // Dom not loaded yet
-        return;
-    }
-
-    if (document.getElementById('format-button') !== null) {
-        return;
-    }
-    else {
-        console.debug('installing button');
-    }
-
-    let button = getFormatButton();
-    button.addEventListener("click", function () {
-        formatCodeFinal(codeMirror, programmingLanguage);
-    });
-
-    programmingLanguage.parentElement.parentElement.parentElement.parentElement.parentElement.appendChild(
-        button
-    );
-
-    //clearInterval(timer);
 }
 
 const getFormatButton = function () {
     var button = document.createElement("button");
-    button.innerHTML = "▤";
+    button.innerHTML = "Format";
     button.className = "tool-button";
     button.id = "format-button";
     button.setAttribute("icon", "information");
     button.setAttribute("data-no-border", "true");
     button.setAttribute("type", "ghost");
     button.style.marginRight = "10px";
+    button.style.marginLeft = "10px";
     button.style.border = "none";
-    button.style.backgroundColor = "transparent";
+    setButtonTheme(button);
     button.style.borderImage = "none";
     button.style.outline = "none";
     button.style.cursor = "pointer";
     button.title = "Format";
+    button.style.padding = "4px 20px";
+    button.style.fontWeight = "600";
+    button.style.borderRadius = "3px";
+
+    button.addEventListener("click", formatCodeFinal);
     return button;
 };
 
-const formatCodeFinal = function (codeMirror, programmingLanguage) {
-    let language = programmingLanguage.title;
-    let codeText = codeMirror.getValue();
+
+const formatCodeFinal = function () {
+    let language = document.querySelector(".relative.notranslate").innerText
+
+    let codeText = getCode();
     if (language === undefined) {
         return;
     }
@@ -87,7 +106,7 @@ const formatCodeFinal = function (codeMirror, programmingLanguage) {
             parser: "babel",
             plugins: [parserBabel],
         });
-        codeMirror.setValue(formattedCode);
+        insertCode(formattedCode);
     } else if (language === "TypeScript") {
         formattedCode = prettier.format(codeText, {
             parser: "typescript",
@@ -109,15 +128,25 @@ const formatCodeFinal = function (codeMirror, programmingLanguage) {
         formattedCode = dartfmt.formatCode(codeText).code
     }
     else {
-        console.debug(`Formatter not available for ${programmingLanguage.title}`);
+        console.debug(`Formatter not available for ${language}`);
         return;
     }
 
     if (formattedCode) {
-        codeMirror.setValue(formattedCode);
+        insertCode(formattedCode);
     }
-    console.debug(`Code formatted for ${programmingLanguage.title}`);
+    console.debug(`Code formatted for ${language}`);
 };
+
+const setButtonTheme = function(btn) {
+    theme = document.getElementsByTagName('html')[0].getAttribute('data-theme');
+    if (theme === 'dark') {
+        btn.style.color = darkTextColor;
+    }
+    else if (theme === 'light') {
+        btn.style.color = lightTextColor;
+    }
+}
 
 const applyCustomRules = function (formatted) {
     return formatted.replace(/\}\r\n/g, '}\n\n')
@@ -269,6 +298,18 @@ const applyCustomRules = function (formatted) {
 
         .replace(/\>\s+\{\s*([A-Za-z0-9 ,-.\"]+)\s+\}\;/g, '> { $1 };');
 }
+function insertCode(code) {
+    if (code) {
+        var model = monaco.editor.getModels()[0];
+        model.setValue(code);
+    }
+}
 
+function getCode() {
+    var model = monaco.editor.getModels()[0];
+    var code = model.getValue();
 
-setInterval(startLoading, 5000);
+    return code;
+}
+
+setTimeout(startLoading, 5000);
