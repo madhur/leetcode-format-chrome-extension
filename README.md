@@ -15,6 +15,7 @@ Currently, following languages are supported, with plans to add more:
 
 ## Contributors
 * [@alushpranav](https://github.com/alushpranav) - added support for Dart language
+* [@prabaljainn](https://github.com/prabaljainn) - added support for Monaco editor to which leedcode has switched to as of March 2023
 
 Send your feedback and any bug reports [here](https://github.com/madhur/leetcode-format-chrome-extension/issues)
 
