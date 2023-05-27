@@ -6,7 +6,7 @@ import "./dart-style.js"
 
 /*Old UI Variables */
 
-const codeMirror = ".CodeMirror";
+const codeMirrorDOM = ".CodeMirror";
 
 /* Old UI Variables End */
 
@@ -35,7 +35,7 @@ window.addEventListener("locationchange", function (event) {
 });
 
 function startLoading() {
-    let codeMirrorSelector = document.querySelector(codeMirror);
+    let codeMirrorSelector = document.querySelector(codeMirrorDOM);
     if (codeMirrorSelector === undefined || codeMirrorSelector === null) {
         // codemirror not found on page
         // Check for new UI
