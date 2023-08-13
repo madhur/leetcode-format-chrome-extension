@@ -138,6 +138,10 @@ const getFormatButtonNew = function () {
     return button;
 };
 
+window.addEventListener("keyup", event => {
+  if(event.ctrlKey && event.altKey && event.key=='f')
+    formatCodeMonaco();
+});
 
 
 const getFormatButton = function () {
