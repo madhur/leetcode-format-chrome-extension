@@ -20,7 +20,7 @@ Use CTRL + ALT + F to trigger the format action through keyboard
 ## Contributors
 * [@alushpranav](https://github.com/alushpranav) - added support for Dart language
 * [@prabaljainn](https://github.com/prabaljainn) - added support for new Leetcode UI
-* [@imsoumya18](https://github.com/prabaljainn) - added hotkey support (CTRL + ALT + F)
+* [@imsoumya18](https://github.com/imsoumya18) - added hotkey support (CTRL + ALT + F)
 
 Send your feedback and any bug reports [here](https://github.com/madhur/leetcode-format-chrome-extension/issues)
 
