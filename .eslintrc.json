@@ -11,8 +11,15 @@
         },
         "sourceType": "module"
     },
+    "globals": {
+        "dartfmt": true,
+        "prettier": true,
+        "js_beautify": true,
+        "monaco": true
+
+    },
     "rules": {
-        "no-const-assign": 1,
+        "no-const-assign": 2,
         "no-extra-semi": 0,
         "semi": 0,
         "no-fallthrough": 0,

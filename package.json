@@ -1,6 +1,6 @@
 {
     "name": "leetcode-format-chrome",
-    "version": "1.5",
+    "version": "1.7",
     "description": "",
     "main": "content.js",
     "scripts": {
@@ -13,6 +13,7 @@
     },
     "devDependencies": {
         "eslint": "^8.6.0",
+        "eslint-config-prettier": "^9.0.0",
         "prettier-plugin-java": "^1.0.1"
     }
 }
