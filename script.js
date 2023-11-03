@@ -108,7 +108,7 @@ function checkAndLoadNewUIv2() {
         uiVersion = 2;
         btn = getFormatButtonNew();
         document.querySelector(buttonLocation).appendChild(btn);
-        addShortcutBinding(formatCodeMonacov2);
+        addShortcutBinding(formatCodeMonaco);
         setupLanguageObserverv2();
     }
 
@@ -189,11 +189,8 @@ const getFormatButtonNew = function () {
     button.style.fontWeight = '600';
     button.style.borderRadius = '3px';
 
-    if (uiVersion == 1){
+    if (uiVersion){
         button.addEventListener('click', formatCodeMonaco);
-    }
-    else if (uiVersion == 2) {
-        button.addEventListener('click', formatCodeMonacov2);
     }
     else {
         console.error("uiVersion variable not set", uiVersion);
@@ -248,17 +245,6 @@ const formatCodeMonaco = function () {
     }
 };
 
-const formatCodeMonacov2 = function () {
-    let language = getLanguage();
-
-    let codeText = getCodev2();
-    const formattedCode = formatCode(codeText, language);
-    if (formattedCode) {
-        insertCodev2(formattedCode);
-        console.debug(`Code formatted for ${language}`);
-    }
-};
-
 function getLanguage() {
     if (uiVersion == 1) {
         return document.querySelector('.relative.notranslate').innerText;
@@ -283,23 +269,9 @@ function insertCode(code) {
     }
 }
 
-function insertCodev2(code) {
-    if (code) {
-        let model = findMonaco();
-        model.setValue(code);
-    }
-}
-
 
 function getCode() {
     const model = monaco.editor.getModels()[0];
-    const code = model.getValue();
-
-    return code;
-}
-
-function getCodev2() {
-    const model = findMonaco();
     const code = model.getValue();
 
     return code;
