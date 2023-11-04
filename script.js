@@ -300,6 +300,10 @@ function getCode() {
 
 function getCodev2() {
     const model = findMonaco();
+    if (model == null) {
+        console.error("Could not found instance of monaco editor");
+        return;
+    }
     const code = model.getValue();
 
     return code;
@@ -310,7 +314,7 @@ function findMonaco() {
     const filter = function(m) {
         return m._languageId != "plaintext";
     }
-    if (models && models.length > 1) {
+    if (models && models.length >= 1) {
         return models.find(filter);
     }
 
