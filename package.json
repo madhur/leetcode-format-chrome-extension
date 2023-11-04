@@ -1,6 +1,6 @@
 {
     "name": "leetcode-format-chrome",
-    "version": "1.7",
+    "version": "1.8",
     "description": "",
     "main": "content.js",
     "scripts": {
