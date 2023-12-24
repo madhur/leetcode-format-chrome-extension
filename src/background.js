@@ -35,7 +35,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                 return;
             }
 
-            if (Date.now() - last_checked_ms < defaults.check_interval_ms) {
+            if (Date.now() - last_checked_ms < defaults.check_interval_ms && !message.force) {
                 // We have recently checked for an update, so don't check again.
                 console.debug("Update recently checked, skipping.")
                 return;

@@ -17,7 +17,7 @@ import { LS } from './shared.js';
 
 function refreshDOMState() {
    
-    chrome.runtime.sendMessage({ message: 'checkUpdate' }, function(response) {
+    chrome.runtime.sendMessage({ message: 'checkUpdate', force: true }, function(response) {
         // Handle response from Chrome extension
         console.debug(response);
         document.getElementById('status').innerHTML = 'Updated!';
