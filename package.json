@@ -1,18 +1,16 @@
 {
     "name": "leetcode-format-chrome",
     "version": "1.8",
-    "description": "",
+    "description": "LeetCode Code Format Google Chrome Extension",
     "main": "content.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Madhur Ahuja",
     "license": "ISC",
-    "dependencies": {
-        "prettier": "^2.2.1"
-    },
     "devDependencies": {
         "eslint": "^8.6.0",
+        "prettier": "^2.2.1",
         "eslint-config-prettier": "^9.0.0",
         "prettier-plugin-java": "^1.0.1"
     }
