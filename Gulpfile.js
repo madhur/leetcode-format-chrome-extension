@@ -21,7 +21,7 @@ function copyAllFiles() {
         .pipe(gulp.dest('./dist/'));
 }
 
-function scripts() {
+function applyWebpack() {
     const isProduction = (argv.production === undefined) ? false : true;
     let webpackconfig;
     if (isProduction) {
@@ -44,7 +44,7 @@ function watch() {
             '!*.zip',
             '!src/scripts/config.js'
         ],
-        gulp.series(clean, scripts, copyAllFiles));
+        gulp.series(clean, copyAllFiles, applyWebpack));
 }
 
 function prepareZip() {
@@ -53,5 +53,5 @@ function prepareZip() {
         .pipe(gulp.dest('dist'));
 }
 
-gulp.task('default', gulp.series(clean, scripts, copyAllFiles, prepareZip));
+gulp.task('default', gulp.series(clean, copyAllFiles, applyWebpack, prepareZip));
 gulp.task('watch', watch);

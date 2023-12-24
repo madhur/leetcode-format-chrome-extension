@@ -14,6 +14,10 @@ const supportedLanguages = ['JAVA', 'JAVASCRIPT', 'TYPESCRIPT', 'C++', 'DART', "
 let theme = null;
 const lightTextColor = '#000000';
 const darkTextColor = '#eff1f6ff';
+
+
+let buttonLocationV1 = '';
+let buttonLocationV2 = '';
 /* New UI Variables END */
 
 /* Common Variables */
@@ -33,7 +37,23 @@ window.addEventListener('locationchange', function (event) {
     }
 });
 
+console.debug("Registered event refreshPageDomVariables");
+window.addEventListener("refreshPageDomVariables", function (evt) {
+    console.debug("Received event refreshPageDomVariables", evt);
+    if (evt.detail && evt.detail.v1_button && evt.detail.v2_button) {
+        buttonLocationV1 = evt.detail.v1_button;
+        buttonLocationV2 = evt.detail.v2_button;
+    }
+
+});
+
 function startLoading() {
+
+    if(buttonLocationV1 == '' || buttonLocationV2 == ''){
+        console.debug("Properties not found on window object");
+        return;
+    }
+
     let codeMirrorSelector = document.querySelector(codeMirrorDOM);
     if (codeMirrorSelector === undefined || codeMirrorSelector === null) {
         // codemirror not found on page
@@ -78,7 +98,7 @@ function startLoading() {
 }
 
 function checkAndLoadNewUI() {
-    const buttonLocation = '.mr-auto.flex.flex-nowrap.items-center.gap-3';
+    const buttonLocation = buttonLocationV1;
 
     if (!document.querySelector(buttonLocation)) {
         checkAndLoadNewUIv2();
@@ -101,7 +121,7 @@ function checkAndLoadNewUI() {
 function checkAndLoadNewUIv2() {
 
 
-    let buttonLocation = 'div.flex.flex-nowrap.items-center';
+    const buttonLocation = buttonLocationV2;
 
     if (
         !document.querySelector('.tool-button') &&
@@ -193,7 +213,7 @@ const getFormatButtonNew = function () {
     button.style.fontWeight = '600';
     button.style.borderRadius = '3px';
 
-    if (uiVersion == 1){
+    if (uiVersion == 1) {
         button.addEventListener('click', formatCodeMonaco);
     }
     else if (uiVersion == 2) {
@@ -314,7 +334,7 @@ function getCodev2() {
 
 function findMonaco() {
     let models = monaco.editor.getModels();
-    const filter = function(m) {
+    const filter = function (m) {
         return m._languageId != "plaintext";
     }
     if (models && models.length >= 1) {

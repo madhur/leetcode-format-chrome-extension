@@ -20,6 +20,11 @@
             ]
         }
     ],
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    },
+    "host_permissions": ["*://*.madhur.co.in/leetcodeformat/*"],
     "web_accessible_resources": [
         {
             "resources": [
