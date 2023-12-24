@@ -66,6 +66,7 @@ function startLoading() {
 
     let button = getFormatButton();
     uiVersion = 0;
+    console.debug("Ui version is 0");
     addShortcutBinding(formatCodeMirror);
     button.addEventListener('click', function () {
         formatCodeMirror();
@@ -89,6 +90,7 @@ function checkAndLoadNewUI() {
         document.querySelector(buttonLocation)
     ) {
         uiVersion = 1;
+        console.debug("Ui version is 1");
         btn = getFormatButtonNew();
         document.querySelector(buttonLocation).appendChild(btn);
         addShortcutBinding(formatCodeMonaco);
@@ -99,13 +101,14 @@ function checkAndLoadNewUI() {
 function checkAndLoadNewUIv2() {
 
 
-    let buttonLocation = 'div.flex div.items-center div.mr-auto';
+    let buttonLocation = 'div.flex.flex-nowrap.items-center';
 
     if (
         !document.querySelector('.tool-button') &&
         document.querySelector(buttonLocation)
     ) {
         uiVersion = 2;
+        console.debug("Ui version is 2");
         btn = getFormatButtonNew();
         document.querySelector(buttonLocation).appendChild(btn);
         addShortcutBinding(formatCodeMonacov2);
@@ -113,6 +116,7 @@ function checkAndLoadNewUIv2() {
     }
 
 }
+
 
 function setupLanguageObserver() {
     const languageObserver = '.relative.notranslate';
@@ -204,7 +208,6 @@ const getFormatButtonNew = function () {
 function addShortcutBinding(func) {
     window.addEventListener('keyup', (event) => {
         if (event.ctrlKey && event.altKey && event.key == 'f')
-            //formatCodeMonaco();
             func();
     });
 }

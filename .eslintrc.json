@@ -15,7 +15,8 @@
         "dartfmt": true,
         "prettier": true,
         "js_beautify": true,
-        "monaco": true
+        "monaco": true,
+        "chrome": true
 
     },
     "rules": {

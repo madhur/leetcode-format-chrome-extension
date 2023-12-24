@@ -24,6 +24,18 @@ Use CTRL + ALT + F to trigger the format action through keyboard
 
 Send your feedback and any bug reports [here](https://github.com/madhur/leetcode-format-chrome-extension/issues)
 
+### Demo GIF 
+
 <img src="./images/format-demo.gif">
 
+### Dynamic layout
 
+<img src="./images/dynamic_layout.png">
+
+### New UI
+
+<img src="./images/new_ui.png">
+
+### Old UI
+
+<img src="./images/old_ui.png">
