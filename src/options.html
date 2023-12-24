@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: "Trebuchet MS", sans-serif;
+        }
+
+        th {
+            font-weight: normal;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Leetcode Format Options</h1>
+
+    <p>This extension relies on manipulating DOM state for <a href="http://leetcode.com">LeetCode</a></p>
+    <p>Sometimes, when <a href="https://leetcode.com">LeetCode</a> makes changes to their page structure, it can result in this extension getting non-functioning and requiring an update</p>
+    <p>The below button will refresh the DOM options which needs to be looked upon at runtime.</p>
+    <p>You do not need to click this button, if your extension is working correctly.</p>
+
+    <form id="options">
+        <input type="button" value="Refresh New DOM State for LeetCode.com" id="save" />
+        <span id="status"></span>
+    </form>
+
+    <p>
+        <a href="https://github.com/madhur/leetcode-format-chrome-extension/issues">Report a bug or request a feature</a> | <a
+            href="https://github.com/madhur/leetcode-format-chrome-extension">Source Code</a>
+    </p>
+
+    <script src="options.js">
+
+    </script>
+</body>
+
+</html>

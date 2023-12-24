@@ -3,3 +3,5 @@ Archive.zip
 .keys.json
 node_modules
 *.zip
+build
+dist
