@@ -188,7 +188,7 @@ const getFormatButtonNew = function () {
     button.style.borderImage = 'none';
     button.style.outline = 'none';
     button.style.cursor = 'pointer';
-    button.title = 'Format';
+    button.title = 'Ctrl + Alt + F';
     button.style.padding = '4px 20px';
     button.style.fontWeight = '600';
     button.style.borderRadius = '3px';
@@ -226,7 +226,7 @@ const getFormatButton = function () {
     button.style.borderImage = 'none';
     button.style.outline = 'none';
     button.style.cursor = 'pointer';
-    button.title = 'Format';
+    button.title = 'Ctrl + Alt + F';
     return button;
 };
 
